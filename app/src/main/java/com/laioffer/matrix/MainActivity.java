@@ -1,33 +1,42 @@
 package com.laioffer.matrix;
 
-import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        // Get ListView object from xml.
+        ListView eventListView = findViewById(R.id.event_list);
 
-        if (fragmentManager.findFragmentById(R.id.list_container) == null) {
-            ListFragment listFragment = new ListFragment()
-        }
+        // Initialize an adapter.
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.event_item,
+                R.id.event_name,
+                getEventNames());
+
+        // Assign adapter to ListView.
+        eventListView.setAdapter(adapter);
     }
 
-    @Override
-    public void onAttach(@NonNull Context context)
-
-    private boolean isTablet() {
-        return (getApplicationContext().getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_MASK) >=
-                Configuration.SCREENLAYOUT_SIZE_LARGE;
+    /**
+     * A dummy function to get fake event names.
+     */
+    private String[] getEventNames() {
+        String[] names = {
+                "Event1", "Event2", "Event3",
+                "Event4", "Event5", "Event6",
+                "Event7", "Event8", "Event9",
+                "Event10", "Event11", "Event12"};
+        return names;
     }
 }
