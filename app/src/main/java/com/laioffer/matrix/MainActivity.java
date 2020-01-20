@@ -1,7 +1,6 @@
 package com.laioffer.matrix;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,22 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Get ListView object from xml.
-        ListView eventListView = findViewById(R.id.event_list);
-
-        // Initialize an adapter.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                R.layout.event_item,
-                R.id.event_name,
-                getEventNames());
-
+        ListView eventListView = (ListView) findViewById(R.id.event_list);
         // Assign adapter to ListView.
+        EventAdapter adapter = new EventAdapter(this);
         eventListView.setAdapter(adapter);
     }
 
