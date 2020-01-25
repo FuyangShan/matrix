@@ -1,6 +1,7 @@
 package com.laioffer.matrix;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 public class GridFragment extends Fragment {
 
+    private GridView gridView;
 
     public GridFragment() {
         // Required empty public constructor
@@ -22,10 +24,19 @@ public class GridFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
-        GridView gridView = (GridView) view.findViewById(R.id.view_grid);
+        gridView = (GridView) view.findViewById(R.id.view_grid);
         gridView.setAdapter(new EventAdapter(getActivity()));
         return view;
-
     }
 
+    // Change background color if the item is selected
+    public void onItemSelected(int position){
+        for (int i = 0; i < gridView.getChildCount(); i++){
+            if (position == i) {
+                gridView.getChildAt(i).setBackgroundColor(Color.BLUE);
+            } else {
+                gridView.getChildAt(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+            }
+        }
+    }
 }

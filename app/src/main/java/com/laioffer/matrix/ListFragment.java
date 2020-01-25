@@ -6,23 +6,32 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class ListFragment extends Fragment {
 
+    //step2: Define callBack
     OnItemSelectListener callBack;
 
-    // Container Activity must implement this interface
+    //step1: Container Activity must implement this interface
     public interface OnItemSelectListener {
         public void onItemSelected(int position);
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         try {
             callBack = (OnItemSelectListener) context;
         } catch (ClassCastException e) {
@@ -40,10 +49,9 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
+
         ListView listView = (ListView) view.findViewById(R.id.event_list);
 
-
-        // listView.setAdapter(new EventAdapter(getActivity()));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
@@ -51,8 +59,18 @@ public class ListFragment extends Fragment {
 
         // Assign adapter to ListView.
         listView.setAdapter(adapter);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                callBack.onItemSelected(i);
+            }
+        });
+
         return view;
     }
+
 
     private String[] getEventNames() {
         String[] names = {
