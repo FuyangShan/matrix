@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements ListFragment.OnItemSelectListener {
+public class MainActivity extends AppCompatActivity implements ListFragment.OnItemSelectListener, GridFragment.OnItemSelectListener{
     private ListFragment listFragment;
     private GridFragment gridFragment;
 
@@ -36,4 +36,10 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     public void onItemSelected(int position) {
         gridFragment.onItemSelected(position);
     }
+
+    @Override
+    public void onCommentSelected(int position) {
+        listFragment.onItemSelected(position);
+    }
+
 }

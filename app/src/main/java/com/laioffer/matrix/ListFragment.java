@@ -2,6 +2,7 @@ package com.laioffer.matrix;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class ListFragment extends Fragment {
+    private ListView listView;
 
     //step2: Define callBack
     OnItemSelectListener callBack;
@@ -50,7 +52,7 @@ public class ListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
-        ListView listView = (ListView) view.findViewById(R.id.event_list);
+        listView = (ListView) view.findViewById(R.id.event_list);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -71,8 +73,17 @@ public class ListFragment extends Fragment {
         return view;
     }
 
+    public void onItemSelected(int position) {
+        for (int i = 0; i < listView.getChildCount(); i++) {
+            if (position == i) {
+                listView.getChildAt(i).setBackgroundColor(Color.BLUE);
+            } else {
+                listView.getChildAt(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+            }
+        }
+    }
 
-    private String[] getEventNames() {
+        private String[] getEventNames() {
         String[] names = {
                 "Event1", "Event2", "Event3",
                 "Event4", "Event5", "Event6",
@@ -80,6 +91,5 @@ public class ListFragment extends Fragment {
                 "Event10", "Event11", "Event12"};
         return names;
     }
-
 
 }
