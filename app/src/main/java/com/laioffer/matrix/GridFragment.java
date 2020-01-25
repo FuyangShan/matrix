@@ -9,10 +9,6 @@ import android.widget.GridView;
 
 import androidx.fragment.app.Fragment;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class GridFragment extends Fragment {
 
 
